@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "accomo-sun-backend"
+version = "0.1.0"
+description = ""
+authors = ["조현일 <himzei@gmail.com>"]
+readme = "README.md"
+packages = [{include = "accomo_sun_backend"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^4.1.4"
+Pillow = "^9.3.0"
+
+
+[tool.poetry.group.dev.dependencies]
+autopep8 = "^2.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
