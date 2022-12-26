@@ -25,16 +25,30 @@ class Room(CommonModel):
         max_length=20,
         choices=RoomKindChoices.choices,
     )
-    owner = models.ForeignKey("users.User", on_delete=models.CASCADE)
-    amenities = models.ManyToManyField("rooms.Amenity")
+    owner = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, related_name="rooms", )
+    amenities = models.ManyToManyField("rooms.Amenity", related_name="rooms",)
     category = models.ForeignKey(
-        "categories.Category", on_delete=models.SET_NULL, null=True, blank=True,)
+        "categories.Category", on_delete=models.SET_NULL, null=True, blank=True, related_name="rooms",)
 
     def __str__(self):
         return self.name
 
     class Meta:
         verbose_name_plural = "숙소"
+
+    def total_amenities(room):
+        return room.amenities.count()
+
+    def rating(room):
+        count = room.reviews.count()
+        if count == 0:
+            return 0
+        else:
+            total_rating = 0
+            for review in room.reviews.all().values("rating"):
+                total_rating += review["rating"]
+            return round(total_rating / count, 2)
 
 
 class Amenity(CommonModel):

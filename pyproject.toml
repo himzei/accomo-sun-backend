@@ -10,6 +10,7 @@ packages = [{include = "accomo_sun_backend"}]
 python = "^3.10"
 Django = "^4.1.4"
 Pillow = "^9.3.0"
+djangorestframework = "^3.14.0"
 
 
 [tool.poetry.group.dev.dependencies]
