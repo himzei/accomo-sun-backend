@@ -24,7 +24,7 @@ class User(AbstractUser):
     username = models.CharField(verbose_name="아이디", max_length=150,
                                 unique=True,)
 
-    avatar = models.ImageField(blank=True, verbose_name="프로필 사진")
+    avatar = models.URLField(blank=True, verbose_name="프로필 사진")
     name = models.CharField(max_length=150, default="", verbose_name="이름")
     email = models.EmailField(blank=True, verbose_name="이메일")
     is_host = models.BooleanField(default=False, verbose_name="호스트")

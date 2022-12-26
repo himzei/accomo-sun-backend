@@ -42,8 +42,16 @@ class RoomListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Room
-        fields = ("pk", "name", "price", "country",
-                  "rating", "is_owner", "is_liked", "photos", )
+        fields = (
+            "pk",
+            "name",
+            "price",
+            "country",
+            "rating",
+            "is_owner",
+            "is_liked",
+            "photos",
+        )
 
     def get_rating(self, room):
         return room.rating()
