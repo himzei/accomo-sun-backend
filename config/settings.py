@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 import environ
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 import dj_database_url
 
 env = environ.Env()
@@ -187,3 +189,14 @@ REST_FRAMEWORK = {
         "config.authentication.JWTAuthentication",
     ]
 }
+
+
+if not DEBUG: 
+    sentry_sdk.init(
+      dsn="https://a69d8f3b2e484c0185a10bfddf5f87a4@o422592.ingest.sentry.io/5351030",
+      integrations=[
+          DjangoIntegration(),
+      ],
+      traces_sample_rate=1.0,
+      send_default_pii=True
+    )
