@@ -47,6 +47,7 @@ if RENDER_EXTERNAL_HOSTNAME:
 THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
+    "corsheaders",
 ]
 
 SYSTEM_APPS = [
@@ -76,8 +77,9 @@ INSTALLED_APPS = SYSTEM_APPS + THIRD_PARTY_APPS + CUSTOM_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    # "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -189,6 +191,16 @@ REST_FRAMEWORK = {
         "config.authentication.JWTAuthentication",
     ]
 }
+
+if DEBUG: 
+    CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000"]
+    CORS_TRUSTED_ORIGINS = ["http://127.0.0.1:3000"]
+
+else: 
+    CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000"]
+    CORS_TRUSTED_ORIGINS = ["http://127.0.0.1:3000"]
+
+CORS_ALLOW_CREDENTIALS = True
 
 
 if not DEBUG: 
