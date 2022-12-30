@@ -194,11 +194,11 @@ REST_FRAMEWORK = {
 
 if DEBUG: 
     CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000", "http://localhost:3000"]
-    CORS_TRUSTED_ORIGINS = ["http://127.0.0.1:3000", "http://localhost:3000"]
+    CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:3000", "http://localhost:3000"]
 
 else: 
     CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000"]
-    CORS_TRUSTED_ORIGINS = ["http://127.0.0.1:3000"]
+    CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:3000"]
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -212,3 +212,6 @@ if not DEBUG:
       traces_sample_rate=1.0,
       send_default_pii=True
     )
+
+
+GH_SECRET = env("GH_SECRET")
