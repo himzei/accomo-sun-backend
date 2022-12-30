@@ -47,6 +47,7 @@ class RoomListSerializer(serializers.ModelSerializer):
             "name",
             "price",
             "country",
+            "city",
             "rating",
             "is_owner",
             "is_liked",
@@ -58,11 +59,17 @@ class RoomListSerializer(serializers.ModelSerializer):
 
     def get_is_owner(self, room):
         request = self.context["request"]
-        return room.owner == request.user
+        if request: 
+            return room.owner == request.user
+        return False
+          
 
     def get_is_liked(self, room):
         request = self.context["request"]
-        return WishList.objects.filter(
-            user=request.user,
-            rooms__pk=room.pk
-        ).exists()
+        if request: 
+            if request.user.is_authenticated: 
+                return WishList.objects.filter(
+                    user=request.user,
+                    rooms__pk=room.pk
+                ).exists()
+        return False
