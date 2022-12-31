@@ -51,8 +51,7 @@ class LogIn(APIView):
         username = request.data.get("username")
         password = request.data.get("password")
 
-        print(username)
-        print(password)
+
         if not username or not password:
             raise ParseError
         user = authenticate(request, username="himzei", password=password)
@@ -144,6 +143,7 @@ class GithubLogIn(APIView):
   def post(self, request): 
     try: 
       code = request.data.get("code")
+      
       access_token = requests.post(f"https://github.com/login/oauth/access_token?code={code}&client_id=d3d9977c152c50bddaa4&client_secret={settings.GH_SECRET}", 
       headers={"Accept": "application/json"},
       )
