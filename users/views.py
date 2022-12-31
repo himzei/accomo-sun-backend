@@ -51,14 +51,22 @@ class LogIn(APIView):
         username = request.data.get("username")
         password = request.data.get("password")
 
+        print(username)
+        print(password)
         if not username or not password:
             raise ParseError
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username="himzei", password=password)
         if user:
             login(request, user)
-            return Response({"ok": "Welcome"})
+            return Response(
+              {"ok": "Welcome"}, 
+              status=status.HTTP_200_OK,
+            )
         else:
-            return Response({"error": "잘못된 패스워드 입니다. "})
+            return Response(
+              {"error": "잘못된 패스워드 입니다. "}, 
+              status=status.HTTP_400_BAD_REQUEST,
+            )
 
 
 class PublicUser(APIView):

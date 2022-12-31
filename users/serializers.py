@@ -34,7 +34,6 @@ class PrivateUserSerializer(ModelSerializer):
             "gender",
             "language",
             "currency",
-
         )
 
 

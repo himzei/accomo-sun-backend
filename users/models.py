@@ -21,19 +21,19 @@ class User(AbstractUser):
     last_name = models.CharField(
         max_length=150, editable=False
     )
-    username = models.CharField(verbose_name="아이디", max_length=150,
+    username = models.CharField( max_length=150,
                                 unique=True,)
 
-    avatar = models.URLField(blank=True, verbose_name="프로필 사진")
-    name = models.CharField(max_length=150, default="", verbose_name="이름")
-    email = models.EmailField(blank=True, verbose_name="이메일")
-    is_host = models.BooleanField(default=False, verbose_name="호스트")
+    avatar = models.URLField(blank=True, )
+    name = models.CharField(max_length=150, default="", )
+    email = models.EmailField(blank=True, unique=True,)
+    is_host = models.BooleanField(default=False, )
     gender = models.CharField(
-        max_length=10, choices=GenderChoices.choices, verbose_name="성별")
+        max_length=10, choices=GenderChoices.choices, )
     language = models.CharField(
-        max_length=2, choices=LanguageChoices.choices, verbose_name="언어")
+        max_length=2, choices=LanguageChoices.choices, )
     currency = models.CharField(
-        max_length=5, choices=CurrencyChoices.choices, verbose_name="통화단위")
+        max_length=5, choices=CurrencyChoices.choices, )
 
     class Meta:
         verbose_name_plural = "회원"
