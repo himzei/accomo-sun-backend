@@ -100,6 +100,7 @@ class Me(APIView):
 
     def get(self, request):
         user = request.user
+        print(user)
         serializer = serializers.PrivateUserSerializer(user)
         return Response(serializer.data)
 
