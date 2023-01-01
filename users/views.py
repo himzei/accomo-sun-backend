@@ -190,7 +190,7 @@ class KakaoLogIn(APIView):
         data={
           "grant_type": "authorization_code", 
           "client_id": "c00c9350689f948254a3cc6207a83134", 
-          "redirect_uri": "https://accomo-sun-front.onrender.com/social/kakao", 
+          "redirect_uri": "https://jagioddae.click/social/kakao", 
           "code": code,
         }
       )
