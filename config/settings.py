@@ -39,8 +39,7 @@ DEBUG = "RENDER" not in os.environ
 # render 앱을 배포하면 
 # allowed_host 추가해줌
 ALLOWED_HOSTS = [
-  "localhost", 
-  "127.0.0.1"
+  "*", 
   "backend.jagioddae.click"
 ]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
