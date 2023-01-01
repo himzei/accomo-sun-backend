@@ -38,7 +38,11 @@ DEBUG = "RENDER" not in os.environ
 
 # render 앱을 배포하면 
 # allowed_host 추가해줌
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+  "localhost", 
+  "127.0.0.1"
+  "jagioddae.click"
+]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
@@ -189,8 +193,8 @@ if DEBUG:
     CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000"]
     CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:3000"]
 else: 
-    CORS_ALLOWED_ORIGINS = ["https://accomo-sun-front.onrender.com"]
-    CSRF_TRUSTED_ORIGINS = ["https://accomo-sun-front.onrender.com"]
+    CORS_ALLOWED_ORIGINS = ["https://accomo-sun-front.onrender.com", "jagioddae.click"]
+    CSRF_TRUSTED_ORIGINS = ["https://accomo-sun-front.onrender.com", "jagioddae.click"]
 CORS_ALLOW_CREDENTIALS = True
 
 
