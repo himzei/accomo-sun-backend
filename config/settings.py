@@ -191,11 +191,12 @@ if DEBUG:
 else: 
     CORS_ALLOWED_ORIGINS = ["https://accomo-sun-front.onrender.com"]
     CSRF_TRUSTED_ORIGINS = ["https://accomo-sun-front.onrender.com"]
-
 CORS_ALLOW_CREDENTIALS = True
 
 
 if not DEBUG: 
+    SESSION_COOKIE_DOMAIN = ".jagioddae.click"
+    CSRF_COOKIE_DOMAIN = ".jagioddae.click"
     sentry_sdk.init(
       dsn="https://a69d8f3b2e484c0185a10bfddf5f87a4@o422592.ingest.sentry.io/5351030",
       integrations=[
