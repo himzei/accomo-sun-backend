@@ -193,8 +193,8 @@ if DEBUG:
     CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000"]
     CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:3000"]
 else: 
-    CORS_ALLOWED_ORIGINS = ["https://accomo-sun-front.onrender.com", "jagioddae.click"]
-    CSRF_TRUSTED_ORIGINS = ["https://accomo-sun-front.onrender.com", "jagioddae.click"]
+    CORS_ALLOWED_ORIGINS = ["https://jagioddae.click/"]
+    CSRF_TRUSTED_ORIGINS = ["https://jagioddae.click/"]
 CORS_ALLOW_CREDENTIALS = True
 
 
