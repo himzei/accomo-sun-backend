@@ -32,18 +32,18 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in pr  oduction!
+
+# 디버그 False
 DEBUG = "RENDER" not in os.environ
 
-ALLOWED_HOSTS = ["*"]
-
+# render 앱을 배포하면 
+# allowed_host 추가해줌
+ALLOWED_HOSTS = []
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
-
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Application definition
-
-
 THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
@@ -112,7 +112,6 @@ WSGI_APPLICATION = "config.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 if DEBUG:
-
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
