@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound, ParseError, PermissionDenied
-from rest_framework.status import HTTP_204_NO_CONTENT
+from rest_framework import status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .models import Amenity, Room
 from categories.models import Category
@@ -39,7 +39,7 @@ class RoomDetail(APIView):
         if room.owner != request.user:
             raise PermissionDenied
         room.delete()
-        return Response(status=HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     def put(self, request, pk):
         room = self.get_object(pk)
@@ -101,16 +101,21 @@ class Rooms(APIView):
         return Response(serializer.data)
 
     def post(self, request):
+        print("룸 업로드 서버", request.data)
 
         serializer = RoomDetailSerializer(data=request.data)
+        print(serializer.is_valid())
 
         if serializer.is_valid():
+
             category_pk = request.data.get("category")
+
 
             if not category_pk:
                 raise ParseError("카테고리를 필수 입력 항목 입니다.")
             try:
                 category = Category.objects.get(pk=category_pk)
+                print(category.kind)
                 if category.kind == Category.CategoryKindChoices.EXPERIENCES:
                     raise ParseError("카테고리가 없습니다.")
             except Category.DoesNotExist:
@@ -131,12 +136,17 @@ class Rooms(APIView):
                         amenity = Amenity.objects.get(pk=amenity_pk)
                         room.amenities.add(amenity)
 
-                    serializer = RoomDetailSerializer(room)
+                    serializer = RoomDetailSerializer(room, context={"request": request})
+                    return Response(serializer.data)
             except:
                 raise ParseError("Amenity not found")
-            return Response(serializer.data)
+
+            
         else:
-            return Response(serializer.errors)
+            return Response(
+                serializer.errors, 
+                # status=status.HTTP_400_BAD_REQUEST,
+              )
 
 
 class Amenities(APIView):
@@ -182,7 +192,7 @@ class AmenityDetail(APIView):
     def delete(self, request, pk):
         amenity = self.get_object(pk)
         amenity.delete()
-        return Response(status=HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class RoomAmenities(APIView):

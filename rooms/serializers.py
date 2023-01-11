@@ -14,11 +14,16 @@ class AmenitySerializer(serializers.ModelSerializer):
 
 class RoomDetailSerializer(serializers.ModelSerializer):
     owner = TinyUserSerializer(read_only=True)
-    amenities = AmenitySerializer(many=True, read_only=True)
-    category = CategorySerializer(read_only=True)
-
+    amenities = AmenitySerializer(
+        read_only=True,
+        many=True,
+    )
+    category = CategorySerializer(
+        read_only=True,
+    )
     rating = serializers.SerializerMethodField()
     is_owner = serializers.SerializerMethodField()
+    is_liked = serializers.SerializerMethodField()
     photos = PhotoSerializer(many=True, read_only=True)
 
     class Meta:
@@ -29,15 +34,26 @@ class RoomDetailSerializer(serializers.ModelSerializer):
         return room.rating()
 
     def get_is_owner(self, room):
-        request = self.context["request"]
-        return room.owner == request.user
+        request = self.context.get("request")
+        if request:
+            return room.owner == request.user
+        return False
+
+    def get_is_liked(self, room):
+        request = self.context.get("request")
+        if request:
+            if request.user.is_authenticated:
+                return WishList.objects.filter(
+                    user=request.user,
+                    rooms__pk=room.pk,
+                ).exists()
+        return False
 
 
 class RoomListSerializer(serializers.ModelSerializer):
 
     rating = serializers.SerializerMethodField()
     is_owner = serializers.SerializerMethodField()
-    is_liked = serializers.SerializerMethodField()
     photos = PhotoSerializer(many=True, read_only=True)
 
     class Meta:
@@ -50,7 +66,6 @@ class RoomListSerializer(serializers.ModelSerializer):
             "city",
             "rating",
             "is_owner",
-            "is_liked",
             "photos",
         )
 
@@ -58,18 +73,9 @@ class RoomListSerializer(serializers.ModelSerializer):
         return room.rating()
 
     def get_is_owner(self, room):
-        request = self.context["request"]
+        request = self.context.get("request")
         if request: 
             return room.owner == request.user
         return False
           
 
-    def get_is_liked(self, room):
-        request = self.context["request"]
-        if request: 
-            if request.user.is_authenticated: 
-                return WishList.objects.filter(
-                    user=request.user,
-                    rooms__pk=room.pk
-                ).exists()
-        return False

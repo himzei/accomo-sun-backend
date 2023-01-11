@@ -36,11 +36,11 @@ SECRET_KEY = env("SECRET_KEY")
 # 디버그 False
 DEBUG = "RENDER" not in os.environ
 
-# render 앱을 배포하면 
+# render 앱을 배포하면
 # allowed_host 추가해줌
 ALLOWED_HOSTS = [
-  "*", 
-  "backend.jagioddae.click"
+    "*",
+    "backend.jagioddae.click"
 ]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
@@ -188,26 +188,29 @@ REST_FRAMEWORK = {
     ]
 }
 
-if DEBUG: 
+if DEBUG:
     CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000"]
     CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:3000"]
-else: 
-    CORS_ALLOWED_ORIGINS = ["https://jagioddae.click"]
-    CSRF_TRUSTED_ORIGINS = ["https://jagioddae.click"]
+else:
+    CORS_ALLOWED_ORIGINS = ["https://hamo.fun"]
+    CSRF_TRUSTED_ORIGINS = ["https://hamo.fun"]
 CORS_ALLOW_CREDENTIALS = True
 
 
-if not DEBUG: 
-    SESSION_COOKIE_DOMAIN = ".jagioddae.click"
-    CSRF_COOKIE_DOMAIN = ".jagioddae.click"
+if not DEBUG:
+    SESSION_COOKIE_DOMAIN = ".hamo.fun"
+    CSRF_COOKIE_DOMAIN = ".hamo.fun"
     sentry_sdk.init(
-      dsn="https://a69d8f3b2e484c0185a10bfddf5f87a4@o422592.ingest.sentry.io/5351030",
-      integrations=[
-          DjangoIntegration(),
-      ],
-      traces_sample_rate=1.0,
-      send_default_pii=True
+        dsn="https://a69d8f3b2e484c0185a10bfddf5f87a4@o422592.ingest.sentry.io/5351030",
+        integrations=[
+            DjangoIntegration(),
+        ],
+        traces_sample_rate=1.0,
+        send_default_pii=True
     )
 
 
 GH_SECRET = env("GH_SECRET")
+
+CF_ID = env("CF_ID")
+CF_TOKEN = env("CF_TOKEN")
